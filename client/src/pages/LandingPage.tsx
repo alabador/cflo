@@ -1,3 +1,4 @@
+import AuthDetails from "../components/AuthDetails";
 import ThemeController from "../components/ThemeController";
 import SignIn from "../components/auth/SignIn";
 
