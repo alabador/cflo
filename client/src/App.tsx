@@ -1,17 +1,16 @@
 import SignIn from "./components/auth/SignIn"
 import SignUp from "./components/auth/SignUp"
 import AuthDetails from "./components/AuthDetails"
-
+import {Routes, Route} from 'react-router-dom'
+import LandingPage from "./pages/LandingPage"
 
 function App() {
 
 
   return (
-    <>
-      <SignIn />
-      <SignUp />
-      <AuthDetails />
-    </>
+    <Routes>
+      <Route path="/" element={<LandingPage />}/>
+    </Routes>
   )
 }
 
