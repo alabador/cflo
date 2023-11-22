@@ -1,6 +1,5 @@
-import firebase from 'firebase/app'
-import {initializeApp} from "firebase/auth"
-import 'dotenv/config'
+import {initializeApp} from 'firebase/app'
+import {getAuth} from "firebase/auth"
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -11,7 +10,8 @@ const firebaseConfig = {
     appId: import.meta.env.VITE_APP_ID
 };
 
+// Init Firebase
 const app = initializeApp(firebaseConfig);
 
-export const auth = app.auth()
-export default app 
+// Init Firebase Authentication and get a reference to the service
+export const auth = getAuth(app)
