@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { auth, signInWithGoogle } from "../../config/firebase";
-import {signInWithEmailAndPassword} from "firebase/auth";
+import {signInWithGoogle, signInWithLogin } from "../../config/firebase";
 import { FaGoogle } from "react-icons/fa";
 
 const SignIn = () => {
@@ -14,13 +13,7 @@ const SignIn = () => {
 
     const signIn = (e: React.FormEvent) => {
         e.preventDefault();
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                console.log(userCredential);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        signInWithLogin(email, password)
     };
 
     return (

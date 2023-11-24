@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import {auth, signInWithGoogle} from '../../config/firebase'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import {signInWithGoogle, createUserWithLogin} from '../../config/firebase'
 import { FaGoogle } from 'react-icons/fa'
 
 const SignUp = () => {
@@ -12,13 +11,8 @@ const SignUp = () => {
     
     const signUp = (e : React.FormEvent) => {
         e.preventDefault()
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                console.log(userCredential)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+        createUserWithLogin(email, password)
+        
     }
 
     return (

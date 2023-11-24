@@ -1,5 +1,5 @@
 import {initializeApp} from 'firebase/app'
-import {GoogleAuthProvider, getAuth, signInWithPopup} from "firebase/auth"
+import {GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup} from "firebase/auth"
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -44,3 +44,22 @@ export const signInWithGoogle = () => {
         });
 };
 
+export const signInWithLogin = (email, password) => {
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+        console.log(userCredential);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+}
+
+export const createUserWithLogin = (email, password) => {
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            console.log(userCredential)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+}
