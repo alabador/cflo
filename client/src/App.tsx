@@ -1,9 +1,5 @@
-import SignIn from "./components/auth/SignIn"
-import SignUp from "./components/auth/SignUp"
-import AuthDetails from "./components/AuthDetails"
-import {Routes, Route, createBrowserRouter, RouterProvider} from 'react-router-dom'
+import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import LandingPage from "./routes/LandingPage"
-import LoginPage from "./routes/LoginPage"
 import CreateAccountPage from "./routes/CreateAccountPage"
 
 function App() {
@@ -11,10 +7,6 @@ function App() {
     {
       path: "/",
       element:<LandingPage />
-    }, 
-    {
-      path: "/login",
-      element: <LoginPage />
     }, 
     {
       path: "/create-account",

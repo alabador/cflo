@@ -1,14 +1,7 @@
 import React, { useState } from "react";
-import { auth } from "../../config/firebase";
-import {
-    signInWithEmailAndPassword,
-    signInWithPopup,
-    GoogleAuthProvider,
-} from "firebase/auth";
+import { auth, signInWithGoogle } from "../../config/firebase";
+import {signInWithEmailAndPassword} from "firebase/auth";
 import { FaGoogle } from "react-icons/fa";
-
-
-const provider = new GoogleAuthProvider();
 
 const SignIn = () => {
     const [email, setEmail] = useState("");
@@ -27,30 +20,6 @@ const SignIn = () => {
             })
             .catch((error) => {
                 console.log(error);
-            });
-    };
-
-    const signInWithGoogle = () => {
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential: any =
-                    GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
-                // The signed-in user info.
-                const user = result.user;
-                // IdP data available using getAdditionalUserInfo(result)
-                // ...
-            })
-            .catch((error) => {
-                // Handle Errors here.
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // The email of the user's account used.
-                const email = error.customData.email;
-                // The AuthCredential type that was used.
-                const credential =
-                    GoogleAuthProvider.credentialFromError(error);
             });
     };
 

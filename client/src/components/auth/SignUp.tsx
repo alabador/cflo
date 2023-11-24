@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import {auth} from '../../config/firebase'
+import {auth, signInWithGoogle} from '../../config/firebase'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { FaGoogle } from 'react-icons/fa'
 
 const SignUp = () => {
     const [email, setEmail] = useState('')
@@ -22,17 +23,39 @@ const SignUp = () => {
 
     return (
         <div>
-            <form onSubmit={signUp}>
-                <h1>Create an Account</h1>
-                <input 
-                    value={email} onChange={handleEmail}
-                    type="email" placeholder="Email" className="input input-bordered w-full max-w-xs" 
-                />
-                <input 
-                    value={password} onChange={handlePassword}
-                    type="password" placeholder="Password" className="input input-bordered w-full max-w-xs" 
-                />
-                <button className="btn" type='submit'>Sign Up</button>
+            <form className="card-body" onSubmit={signUp}>
+                <div className="form-control">
+                    <label className="label">
+                        <span className="label-text">Email</span>
+                    </label>
+                    <input
+                        type="email"
+                        placeholder="email"
+                        className="input input-bordered"
+                        required
+                        value={email}
+                        onChange={handleEmail}
+                    />
+                </div>
+                <div className="form-control">
+                    <label className="label">
+                        <span className="label-text">Password</span>
+                    </label>
+                    <input
+                        type="password"
+                        placeholder="password"
+                        className="input input-bordered"
+                        required
+                        value={password}
+                        onChange={handlePassword}
+                    />
+                </div>
+                <div className="form-control gap-4 mt-6">
+                    <button className="btn btn-primary" type="submit">Create an Account</button>
+                    <button type="button" className="btn btn-secondary w-full" onClick={signInWithGoogle}>
+                        Sign in with Google <FaGoogle />
+                    </button>
+                </div>
             </form>
         </div>
     )

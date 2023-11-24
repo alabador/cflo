@@ -1,4 +1,4 @@
-import CreateAccountCta from "../components/CreateAccountCta";
+import CreateAccountCta from "../components/auth/CreateAccountCta";
 import ThemeController from "../components/ThemeController";
 import SignIn from "../components/auth/SignIn";
 
