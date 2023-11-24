@@ -1,4 +1,4 @@
-import AuthDetails from "../components/AuthDetails";
+import CreateAccountCta from "../components/CreateAccountCta";
 import ThemeController from "../components/ThemeController";
 import SignIn from "../components/auth/SignIn";
 
@@ -15,6 +15,8 @@ const LandingPage = () => {
         </div>
         <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
             <SignIn />
+            <div className="divider my-0"></div> 
+            <CreateAccountCta />
         </div>
       </div>
     </div>

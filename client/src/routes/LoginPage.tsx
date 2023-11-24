@@ -5,9 +5,10 @@ import AuthDetails from "../components/AuthDetails"
 const LoginPage = () => {
   return (
     <>
-        <SignIn />
-        <SignUp />
-        <AuthDetails />
+      <h1>This is the login route /login</h1>
+      <SignIn />
+      <SignUp />
+      <AuthDetails />
     </>
   )
 }

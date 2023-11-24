@@ -88,37 +88,14 @@ const SignIn = () => {
                         </a>
                     </label>
                 </div>
-                <div className="form-control mt-6">
+                <div className="form-control gap-4 mt-6">
                     <button className="btn btn-primary" type="submit">Login</button>
+                    <button type="button" className="btn btn-secondary w-full" onClick={signInWithGoogle}>
+                        Sign in with Google <FaGoogle />
+                    </button>
                 </div>
             </form>
-{/* 
-            <form onSubmit={signIn}>
-                <h1>Log In</h1>
-                <input
-                    value={email}
-                    onChange={handleEmail}
-                    type="email"
-                    placeholder="Email"
-                    className="input input-bordered w-full max-w-xs"
-                />
-                <input
-                    value={password}
-                    onChange={handlePassword}
-                    type="password"
-                    placeholder="Password"
-                    className="input input-bordered w-full max-w-xs"
-                />
-                <button className="btn" type="submit">
-                    Sign In
-                </button>
-            </form> */}
-            <div className="divider">OR</div>
-            <div className="flex justify-center p-8">
-                <button className="btn btn-secondary w-full" onClick={signInWithGoogle}>
-                    Sign in with Google <FaGoogle />
-                </button>
-            </div>
+
         </div>
     );
 };
