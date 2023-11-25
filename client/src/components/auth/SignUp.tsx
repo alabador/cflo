@@ -1,17 +1,28 @@
 import React, { useState } from 'react'
-import {signInWithGoogle, createUserWithLogin} from '../../config/firebase'
+import {auth} from '../../config/firebase'
 import { FaGoogle } from 'react-icons/fa'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { useNavigate } from 'react-router-dom'
+import SignInWithGoogle from './SignInWithGoogle'
 
 const SignUp = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const navigate = useNavigate()
 
     const handleEmail = (e : React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)
     const handlePassword = (e : React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)
     
     const signUp = (e : React.FormEvent) => {
         e.preventDefault()
-        createUserWithLogin(email, password)
+        createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            console.log(userCredential)
+            navigate('/home')
+        })
+        .catch((error) => {
+            console.log(error)
+        })
         
     }
 
@@ -46,9 +57,7 @@ const SignUp = () => {
                 </div>
                 <div className="form-control gap-4 mt-6">
                     <button className="btn btn-primary" type="submit">Create an Account</button>
-                    <button type="button" className="btn btn-secondary w-full" onClick={signInWithGoogle}>
-                        Sign in with Google <FaGoogle />
-                    </button>
+                    <SignInWithGoogle />
                 </div>
             </form>
         </div>

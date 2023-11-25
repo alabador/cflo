@@ -1,24 +1,36 @@
 import React, { useState } from "react";
-import {signInWithGoogle, signInWithLogin } from "../../config/firebase";
-import { FaGoogle } from "react-icons/fa";
+import { auth, provider } from "../../config/firebase";
+import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import SignInWithGoogle from "./SignInWithGoogle";
 
 const SignIn = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate()
 
     const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) =>
         setEmail(e.target.value);
     const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) =>
         setPassword(e.target.value);
 
-    const signIn = (e: React.FormEvent) => {
+    async function handleSignIn (e: React.FormEvent) {
         e.preventDefault();
-        signInWithLogin(email, password)
+        await signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            console.log(userCredential);
+            navigate('/home')
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+        
     };
+
 
     return (
         <div>
-            <form className="card-body" onSubmit={signIn}>
+            <form className="card-body" onSubmit={handleSignIn}>
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Email</span>
@@ -52,9 +64,7 @@ const SignIn = () => {
                 </div>
                 <div className="form-control gap-4 mt-6">
                     <button className="btn btn-primary" type="submit">Login</button>
-                    <button type="button" className="btn btn-secondary w-full" onClick={signInWithGoogle}>
-                        Sign in with Google <FaGoogle />
-                    </button>
+                    <SignInWithGoogle />
                 </div>
             </form>
 
