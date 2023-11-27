@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import SignInWithGoogle from "./SignInWithGoogle";
 
-const SignIn = () => {
+const SignIn = ({tokenValue}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate()
@@ -19,7 +19,10 @@ const SignIn = () => {
         await signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             console.log(userCredential);
-            navigate('/home')
+            userCredential.user.getIdToken().then((tkn) => {
+                tokenValue(tkn)
+                navigate('/home')
+            })
         })
         .catch((error) => {
             console.log(error);

@@ -2,7 +2,7 @@ import CreateAccountCta from "../components/auth/CreateAccountCta";
 import ThemeController from "../components/ThemeController";
 import SignIn from "../components/auth/SignIn";
 
-const LandingPage = () => {
+const LandingPage = ({tokenValue}) => {
   return (
     <div className="hero min-h-screen bg-base-200 px-8">
       <ThemeController />
@@ -14,7 +14,7 @@ const LandingPage = () => {
           </p>
         </div>
         <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-            <SignIn />
+            <SignIn tokenValue={tokenValue}/>
             <div className="divider my-0"></div> 
             <CreateAccountCta />
         </div>

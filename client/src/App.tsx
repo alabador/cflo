@@ -4,12 +4,23 @@ import CreateAccountPage from "./routes/CreateAccountPage"
 import Home from './routes/Home'
 import {Protected} from './routes/Protected'
 import AuthContext from './components/AuthContext'
+import { useEffect, useState } from 'react'
 
 function App() {
+  const [token, setToken] = useState('')
+
+  const getToken = (newToken) => {
+    setToken(newToken)
+  }
+
+  useEffect(() => {
+    console.log(token)
+  }, [token])
+
   const router = createBrowserRouter([
     {
       path: "/",
-      element:<LandingPage />
+      element:<LandingPage tokenValue={getToken}/>
     }, 
     {
       path: "/create-account",
@@ -17,7 +28,7 @@ function App() {
     }, 
     {
       path: "/home",
-      element: <Protected><Home /></Protected>
+      element: <Protected><Home token={token}/></Protected>
     }
   ])
 
