@@ -11,7 +11,7 @@ const Expenses = ({token}: {token: string} ) => {
     const fetchData = async (token:string) => {
         const response = await axios.get("http://localhost:3000/home", {
             headers: {
-                Authorization: 'Bearer' + token
+                Authorization: `Bearer ${token}`
             }
         });
         setExpenses(response.data.expenses);

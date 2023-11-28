@@ -1,11 +1,13 @@
 import express, { request, response } from 'express';
 import 'dotenv/config'
 import cors from 'cors'
+import middleware from './middleware/index.js';
 
 const app = express()
 
 app.use(express.json())
 app.use(cors())
+app.use(middleware.decodeToken)
 
 app.get('/', (request, response) => {
     return response.status(200).send('Successful')
