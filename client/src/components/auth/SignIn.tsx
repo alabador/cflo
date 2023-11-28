@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { auth, provider } from "../../config/firebase";
+import { auth } from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import SignInWithGoogle from "./SignInWithGoogle";
@@ -67,7 +67,7 @@ const SignIn = ({tokenValue}) => {
                 </div>
                 <div className="form-control gap-4 mt-6">
                     <button className="btn btn-primary" type="submit">Login</button>
-                    <SignInWithGoogle />
+                    <SignInWithGoogle tokenValue={tokenValue}/>
                 </div>
             </form>
 

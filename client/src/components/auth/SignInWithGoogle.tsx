@@ -3,7 +3,7 @@ import { FaGoogle } from "react-icons/fa"
 import { auth, provider } from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
 
-const SignInWithGoogle = () => {
+const SignInWithGoogle = ({tokenValue}) => {
     const navigate = useNavigate()
     
     async function handleSignInWithGoogle () {
@@ -13,10 +13,16 @@ const SignInWithGoogle = () => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 const credential:any =
                     GoogleAuthProvider.credentialFromResult(result);
+                // Access token of user
                 const token = credential.accessToken;
-                // The signed-in user info.
+                // Signed in User Info
                 const user = result.user;
-                navigate('/home')
+                if(user){                    
+                    user.getIdToken().then((tkn) => {
+                        tokenValue(tkn)
+                        navigate('/home')
+                    })
+                }
             })
             .catch((error) => {
                 // Handle Errors here.
@@ -27,6 +33,12 @@ const SignInWithGoogle = () => {
                 // The AuthCredential type that was used.
                 const credential =
                     GoogleAuthProvider.credentialFromError(error);
+                console.log(error, 
+                    `Error Code: ${errorCode}
+                    Error Message: ${errorMessage}
+                    Email: ${email}
+                    Credential: ${credential}
+                `)
             });
 
         } catch (error) {
