@@ -2,6 +2,7 @@ import express, { request, response } from 'express';
 import 'dotenv/config'
 import cors from 'cors'
 import middleware from './middleware/index.js';
+import mongoose from 'mongoose';
 
 const app = express()
 
@@ -22,6 +23,14 @@ app.get('/home', (req, res) => {
 	});
 });
 
-app.listen(process.env.PORT, () => {
-    console.log(`App is listening on port: ${process.env.PORT}`)
-})
+mongoose
+	.connect(process.env.DB_CONNECTION_STRING)
+	.then(() => {
+		console.log('App connected to database')
+		app.listen(process.env.PORT, () => {
+			console.log(`App is listening on port: ${process.env.PORT}`)
+		})
+	})
+	.catch((error) => {
+		console.log(error)
+	})
