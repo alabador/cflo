@@ -3,7 +3,7 @@ import { FaGoogle } from "react-icons/fa"
 import { auth, provider } from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
 
-const SignInWithGoogle = ({tokenValue}) => {
+const SignInWithGoogle = ({tokenValue, authStatus}) => {
     const navigate = useNavigate()
     
     async function handleSignInWithGoogle () {
@@ -20,6 +20,8 @@ const SignInWithGoogle = ({tokenValue}) => {
                 if(user){                    
                     user.getIdToken().then((tkn) => {
                         tokenValue(tkn)
+                        authStatus(true)
+                        window.sessionStorage.setItem("auth", "true")
                         navigate('/home')
                     })
                 }

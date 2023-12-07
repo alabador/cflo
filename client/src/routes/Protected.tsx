@@ -1,10 +1,7 @@
 import {Navigate} from 'react-router-dom'
-import { useContext } from 'react'
-import { Context } from "../components/AuthContext"
 
-export const Protected = ({children}) => {
-  const {user} = useContext(Context)
-  if (!user) {
+export const Protected = ({auth, children}) => {
+  if (!auth) {
     return <Navigate to={"/"} replace/>
   } else {
     return children

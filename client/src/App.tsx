@@ -8,9 +8,16 @@ import { useEffect, useState } from 'react'
 
 function App() {
   const [token, setToken] = useState('')
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    false || window.sessionStorage.getItem("auth") === "true"
+  )
 
   const getToken = (newToken) => {
     setToken(newToken)
+  }
+
+  const getAuthStatus = (status:boolean) => {
+    setIsAuthenticated(status)
   }
 
   useEffect(() => {
@@ -20,7 +27,10 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element:<LandingPage tokenValue={getToken}/>
+      element:<LandingPage 
+        tokenValue={getToken}
+        authStatus={getAuthStatus}
+      />
     }, 
     {
       path: "/create-account",
@@ -28,14 +38,19 @@ function App() {
     }, 
     {
       path: "/home",
-      element: <Protected><Home token={token}/></Protected>
+      element: <Protected auth={isAuthenticated}><Home token={token} 
+        isAuthenticated={isAuthenticated}
+        authStatus={getAuthStatus}
+        /></Protected>
+      // element: <Protected><Home token={token}/></Protected>
     }
   ])
 
   return (
-    <AuthContext>
-      <RouterProvider router={router} />
-    </AuthContext>
+    // <AuthContext>
+    //   <RouterProvider router={router} />
+    // </AuthContext>
+    <RouterProvider router={router} />
   )
 }
 

@@ -25,6 +25,7 @@ app.get('/home', (req, res) => {
 });
 
 app.post('/home', async (req, res) => {
+	// res.send(req.headers.authorization)
 	if (!req.headers.authorization) {
 		return res.status(500).send({message: "Invalid Token"})
 	}

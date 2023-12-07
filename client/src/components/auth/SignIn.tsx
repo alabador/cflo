@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import SignInWithGoogle from "./SignInWithGoogle";
 
-const SignIn = ({tokenValue}) => {
+const SignIn = ({tokenValue, authStatus}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate()
@@ -19,8 +19,12 @@ const SignIn = ({tokenValue}) => {
         await signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             console.log(userCredential);
-            userCredential.user.getIdToken().then((tkn) => {
+            userCredential.user.getIdToken()
+            .then((tkn) => {
+                console.log(tkn)
                 tokenValue(tkn)
+                authStatus(true)
+                window.sessionStorage.setItem("auth", "true")
                 navigate('/home')
             })
         })
@@ -67,7 +71,7 @@ const SignIn = ({tokenValue}) => {
                 </div>
                 <div className="form-control gap-4 mt-6">
                     <button className="btn btn-primary" type="submit">Login</button>
-                    <SignInWithGoogle tokenValue={tokenValue}/>
+                    <SignInWithGoogle tokenValue={tokenValue} authStatus={authStatus}/>
                 </div>
             </form>
 
