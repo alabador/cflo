@@ -7,7 +7,8 @@ import AuthContext from './components/AuthContext'
 import { useEffect, useState } from 'react'
 
 function App() {
-  const [token, setToken] = useState('')
+  const [token, setToken] = useState(
+    '' || window.sessionStorage.getItem("token"))
   const [isAuthenticated, setIsAuthenticated] = useState(
     false || window.sessionStorage.getItem("auth") === "true"
   )
@@ -21,7 +22,7 @@ function App() {
   }
 
   useEffect(() => {
-    console.log(token)
+    // console.log(token)
   }, [token])
 
   const router = createBrowserRouter([
@@ -30,6 +31,7 @@ function App() {
       element:<LandingPage 
         tokenValue={getToken}
         authStatus={getAuthStatus}
+        isAuthenticated={isAuthenticated}
       />
     }, 
     {

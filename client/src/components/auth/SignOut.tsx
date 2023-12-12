@@ -7,6 +7,7 @@ const SignOut = () => {
     async function handleSignOut() {
         try {
             await signOut(auth)
+            sessionStorage.setItem("token", "")
             navigate("/")
         } catch (error) {
             console.log(error)

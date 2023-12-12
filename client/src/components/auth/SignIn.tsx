@@ -21,9 +21,10 @@ const SignIn = ({tokenValue, authStatus}) => {
             console.log(userCredential);
             userCredential.user.getIdToken()
             .then((tkn) => {
-                console.log(tkn)
+                // console.log(tkn)
                 tokenValue(tkn)
                 authStatus(true)
+                window.sessionStorage.setItem("token", tkn)
                 window.sessionStorage.setItem("auth", "true")
                 navigate('/home')
             })

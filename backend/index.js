@@ -9,7 +9,7 @@ import Users from './models/users.js';
 const app = express()
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({origin: true}))
 // app.use(middleware.decodeToken)
 
 
@@ -32,7 +32,21 @@ const newUserData = async (decodeValue, req, res) => {
 }
 
 const updateUserData = async (decodeValue, req, res) => {
+	const filter = {userId : decodeValue.user_id}
+	const options = {
+		upsert : true,
+		new: true,
+	}
 	
+	try {
+		const result = await Users.findOneAndUpdate(filter, 
+			{auth_time: decodeValue.auth_time},
+			options
+		)
+		res.status(200).send({user: result})
+	} catch (error) {
+		res.status(400).send({success: false, msg: error})
+	}
 }
 
 app.get('/', (request, response) => {
@@ -67,7 +81,7 @@ app.post('/home', async (req, res) => {
 			if (!userExists) {
 				newUserData(decodeValue, req, res)
 			} else {
-				res.send("update that user")
+				updateUserData(decodeValue, req, res)
 			}
 			// res.send()
 		} else {

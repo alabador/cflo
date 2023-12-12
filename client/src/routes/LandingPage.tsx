@@ -1,8 +1,17 @@
 import CreateAccountCta from "../components/auth/CreateAccountCta";
 import ThemeController from "../components/ThemeController";
 import SignIn from "../components/auth/SignIn";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
-const LandingPage = ({tokenValue, authStatus}) => {
+const LandingPage = ({tokenValue, authStatus, isAuthenticated}) => {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/home')
+    }
+  }, [])
   return (
     <div className="hero min-h-screen bg-base-200 px-8">
       <ThemeController />

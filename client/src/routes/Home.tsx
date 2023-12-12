@@ -5,7 +5,7 @@ import {auth} from '../config/firebase'
 import { useNavigate } from "react-router-dom"
 import { onAuthStateChanged } from "firebase/auth"
 
-const Home = ({token, isAuthenticated, authStatus}: {token: string, isAuthenticated:boolean, authStatus: Function}) => {
+const Home = ({token, isAuthenticated, authStatus}: {token: string|null, isAuthenticated:boolean, authStatus: Function}) => {
     const user = auth.currentUser
     const navigate = useNavigate()
     
@@ -15,13 +15,13 @@ const Home = ({token, isAuthenticated, authStatus}: {token: string, isAuthentica
               // User is signed in, see docs for a list of available properties
               // https://firebase.google.com/docs/reference/js/auth.user
             //   setAuthUser(currentUser)
-            window.sessionStorage.setItem('auth', 'true')
-            authStatus(true)
+                window.sessionStorage.setItem('auth', 'true')
+                authStatus(true)
             } else {
               // User is signed out
             //   setAuthUser(null)
-            window.sessionStorage.setItem('auth', 'false')
-            authStatus(false)
+                window.sessionStorage.setItem('auth', 'false')
+                authStatus(false)
             }
         });
     

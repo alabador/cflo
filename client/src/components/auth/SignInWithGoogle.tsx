@@ -21,6 +21,7 @@ const SignInWithGoogle = ({tokenValue, authStatus}) => {
                     user.getIdToken().then((tkn) => {
                         tokenValue(tkn)
                         authStatus(true)
+                        window.sessionStorage.setItem("token", tkn)
                         window.sessionStorage.setItem("auth", "true")
                         navigate('/home')
                     })

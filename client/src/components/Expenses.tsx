@@ -5,7 +5,7 @@ interface Expense {
     title: string;
 }
 
-const Expenses = ({token}: {token: string} ) => {
+const Expenses = ({token}: {token: string|null} ) => {
     const [expenses, setExpenses] = useState<Array<Expense>>([]);
 
     const fetchData = async (token:string) => {
@@ -15,7 +15,8 @@ const Expenses = ({token}: {token: string} ) => {
             }
         });
         setExpenses(response.data.expenses);
-        console.log(response.data);
+        // console.log(response.data);
+        return response.data
     };
 
     useEffect(() => {
