@@ -1,13 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { auth } from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import SignInWithGoogle from "./SignInWithGoogle";
+import axios from "axios";
 
 const SignIn = ({tokenValue, authStatus}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate()
+
+    const createUser = async (token:string) => {
+        const response = await axios.post("http://localhost:3000/home", {}, {
+            headers: {
+                'authorization': 'Bearer ' + token
+            }
+        });
+        // console.log(response.data);
+        return response.data
+    };
+
+    // useEffect(() => {
+    //     if (tokenValue) {
+    //         createUser(tokenValue);
+    //     }
+    // }, [tokenValue]);
+
 
     const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) =>
         setEmail(e.target.value);
@@ -19,16 +37,33 @@ const SignIn = ({tokenValue, authStatus}) => {
         await signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             console.log(userCredential);
-            userCredential.user.getIdToken()
-            .then((tkn) => {
-                // console.log(tkn)
-                tokenValue(tkn)
-                authStatus(true)
-                window.sessionStorage.setItem("token", tkn)
-                window.sessionStorage.setItem("auth", "true")
-                navigate('/home')
-            })
+            return userCredential.user.getIdToken()
         })
+        .then((tkn) => {
+            // console.log(tkn)
+            tokenValue(tkn)
+            authStatus(true)
+            window.sessionStorage.setItem("token", tkn)
+            window.sessionStorage.setItem("auth", "true")
+            navigate('/home')
+            return tkn
+        })
+        .then((tkn) => {
+            createUser(tkn)
+        })
+        // .then((userCredential) => {
+        //     console.log(userCredential);
+        //     userCredential.user.getIdToken()
+        //     .then((tkn) => {
+        //         // console.log(tkn)
+        //         tokenValue(tkn)
+        //         authStatus(true)
+        //         createUser(tkn)
+        //         window.sessionStorage.setItem("token", tkn)
+        //         window.sessionStorage.setItem("auth", "true")
+        //         navigate('/home')
+        //     })
+        // })
         .catch((error) => {
             console.log(error);
         });

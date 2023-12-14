@@ -9,7 +9,7 @@ import Users from './models/users.js';
 const app = express()
 
 app.use(express.json())
-app.use(cors({origin: true}))
+app.use(cors())
 // app.use(middleware.decodeToken)
 
 
@@ -66,7 +66,9 @@ app.get('/home', (req, res) => {
 
 app.post('/home', async (req, res) => {
 	// res.send(req.headers.authorization)
+	console.log(req)
 	if (!req.headers.authorization) {
+		console.log('error')
 		return res.status(500).send({message: "Invalid Token"})
 	}
 

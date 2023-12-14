@@ -36,7 +36,11 @@ function App() {
     }, 
     {
       path: "/create-account",
-      element: <CreateAccountPage />
+      element: <CreateAccountPage 
+        tokenValue={getToken} 
+        authStatus={getAuthStatus}
+        isAuthenticated={isAuthenticated}
+      />
     }, 
     {
       path: "/home",

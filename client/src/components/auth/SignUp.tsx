@@ -1,14 +1,31 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {auth} from '../../config/firebase'
 import { FaGoogle } from 'react-icons/fa'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import SignInWithGoogle from './SignInWithGoogle'
+import axios from 'axios'
 
-const SignUp = () => {
+const SignUp = ({tokenValue, authStatus, isAuthenticated}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
+
+    const createUser = async (token:string) => {
+        const response = await axios.post("http://localhost:3000/home", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        // console.log(response.data);
+        return response.data
+    };
+
+    // useEffect(() => {
+    //     if (tokenValue) {
+    //         createUser(tokenValue);
+    //     }
+    // }, [tokenValue]);
 
     const handleEmail = (e : React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)
     const handlePassword = (e : React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)
@@ -18,7 +35,15 @@ const SignUp = () => {
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             console.log(userCredential)
-            navigate('/home')
+            userCredential.user.getIdToken()
+            .then((tkn) => {
+                tokenValue(tkn)
+                authStatus(true)
+                createUser(tkn)
+                window.sessionStorage.setItem("token", tkn)
+                window.sessionStorage.setItem("auth", "true")
+                navigate('/home')
+            })
         })
         .catch((error) => {
             console.log(error)
@@ -57,7 +82,7 @@ const SignUp = () => {
                 </div>
                 <div className="form-control gap-4 mt-6">
                     <button className="btn btn-primary" type="submit">Create an Account</button>
-                    <SignInWithGoogle />
+                    <SignInWithGoogle tokenValue={tokenValue} authStatus={authStatus}/>
                 </div>
             </form>
         </div>
