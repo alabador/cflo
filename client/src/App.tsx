@@ -3,7 +3,6 @@ import LandingPage from "./routes/LandingPage"
 import CreateAccountPage from "./routes/CreateAccountPage"
 import Home from './routes/Home'
 import {Protected} from './routes/Protected'
-import AuthContext from './components/AuthContext'
 import { useEffect, useState } from 'react'
 
 function App() {
@@ -48,14 +47,10 @@ function App() {
         isAuthenticated={isAuthenticated}
         authStatus={getAuthStatus}
         /></Protected>
-      // element: <Protected><Home token={token}/></Protected>
     }
   ])
 
   return (
-    // <AuthContext>
-    //   <RouterProvider router={router} />
-    // </AuthContext>
     <RouterProvider router={router} />
   )
 }

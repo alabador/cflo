@@ -1,31 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {auth} from '../../config/firebase'
-import { FaGoogle } from 'react-icons/fa'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import SignInWithGoogle from './SignInWithGoogle'
-import axios from 'axios'
+import createUser from '../../api/CreateUser'
 
 const SignUp = ({tokenValue, authStatus, isAuthenticated}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
-
-    const createUser = async (token:string) => {
-        const response = await axios.post("http://localhost:3000/home", {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-        // console.log(response.data);
-        return response.data
-    };
-
-    // useEffect(() => {
-    //     if (tokenValue) {
-    //         createUser(tokenValue);
-    //     }
-    // }, [tokenValue]);
 
     const handleEmail = (e : React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)
     const handlePassword = (e : React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)
@@ -35,15 +18,19 @@ const SignUp = ({tokenValue, authStatus, isAuthenticated}) => {
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             console.log(userCredential)
-            userCredential.user.getIdToken()
-            .then((tkn) => {
-                tokenValue(tkn)
-                authStatus(true)
-                createUser(tkn)
-                window.sessionStorage.setItem("token", tkn)
-                window.sessionStorage.setItem("auth", "true")
-                navigate('/home')
-            })
+            return userCredential.user.getIdToken()
+        })
+        .then((tkn) => {
+            tokenValue(tkn)
+            authStatus(true)
+            createUser(tkn)
+            window.sessionStorage.setItem("token", tkn)
+            window.sessionStorage.setItem("auth", "true")
+            navigate('/home')
+            return tkn
+        })
+        .then((tkn) => {
+            createUser(tkn)
         })
         .catch((error) => {
             console.log(error)

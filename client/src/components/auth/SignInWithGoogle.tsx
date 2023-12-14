@@ -2,6 +2,7 @@ import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { FaGoogle } from "react-icons/fa"
 import { auth, provider } from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
+import createUser from "../../api/CreateUser";
 
 const SignInWithGoogle = ({tokenValue, authStatus}) => {
     const navigate = useNavigate()
@@ -17,15 +18,21 @@ const SignInWithGoogle = ({tokenValue, authStatus}) => {
                 const token = credential.accessToken;
                 // Signed in User Info
                 const user = result.user;
-                if(user){                    
-                    user.getIdToken().then((tkn) => {
-                        tokenValue(tkn)
-                        authStatus(true)
-                        window.sessionStorage.setItem("token", tkn)
-                        window.sessionStorage.setItem("auth", "true")
-                        navigate('/home')
-                    })
-                }
+                return user
+            })
+            .then((user) => {                   
+                return user.getIdToken()
+            })
+            .then((tkn) => {
+                tokenValue(tkn)
+                authStatus(true)
+                window.sessionStorage.setItem("token", tkn)
+                window.sessionStorage.setItem("auth", "true")
+                navigate('/home')
+                return tkn
+            })
+            .then((tkn) => {
+                createUser(tkn)
             })
             .catch((error) => {
                 // Handle Errors here.
