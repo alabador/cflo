@@ -14,6 +14,10 @@ const expenseSchema = new Schema({
         type: String,
         required: false
     },
+    expense_description : {
+        type: String,
+        required: false
+    },
     is_expense: {
         type: Boolean,
         required: true
