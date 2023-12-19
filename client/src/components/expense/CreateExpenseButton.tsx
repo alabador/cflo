@@ -1,24 +1,30 @@
 import { MdOutlineAttachMoney } from "react-icons/md";
 import ExpenseDialog from "./ExpenseDialog";
+import { useEffect, useState } from "react";
 
 const CreateExpenseButton = () => {
-    const element = document.getElementById('expense-modal')
+    const [dialogElement, setDialogElement] = useState<HTMLElement|HTMLDialogElement|null>(null)
+
+    useEffect(() => {
+        setDialogElement(() => document.getElementById('expense-modal'))
+    }, [])
 
     const handleClick = (element) => {
-        if (element !== null) {
-            element.showModal()
-        }
+        element.showModal()
     }
 
     return (
         <>
             <button 
                 className="btn btn-primary font-medium gap-0"
-                onClick={()=>handleClick(element)}
+                onClick={()=>handleClick(dialogElement)}
             >
                 <MdOutlineAttachMoney /> Add Expense
             </button>
-            <ExpenseDialog />
+            <dialog id="expense-modal" className="modal">
+                <ExpenseDialog />
+            </dialog>
+
         </>
     )
 }
