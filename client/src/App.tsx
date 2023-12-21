@@ -5,7 +5,7 @@ import Home from './routes/Home'
 import {Protected} from './routes/Protected'
 import { useEffect, useState } from 'react'
 
-interface userInfo {
+export interface userInfo {
   userId: string,
   email: string
 }
@@ -63,6 +63,7 @@ function App() {
       element: <Protected auth={isAuthenticated}><Home token={token} 
         isAuthenticated={isAuthenticated}
         authStatus={getAuthStatus}
+        userInfo={userInfo}
         /></Protected>
     }
   ])
