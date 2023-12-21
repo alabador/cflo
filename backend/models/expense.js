@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const expenseSchema = new Schema({
+    userId : {
+        type: String, 
+        required: true
+    },
     expense_name : {
         type: String,
         required: true

@@ -66,7 +66,6 @@ app.get('/home', (req, res) => {
 
 app.post('/home', async (req, res) => {
 	// res.send(req.headers.authorization)
-	console.log(req)
 	if (!req.headers.authorization) {
 		console.log('error')
 		return res.status(500).send({message: "Invalid Token"})
@@ -94,6 +93,10 @@ app.post('/home', async (req, res) => {
 		return res.json({ message: 'Internal Error' });
 	}
 });
+
+app.post('/home/add', async (req,res) => {
+	res.send('hi')
+})
 
 mongoose
 	.connect(process.env.DB_CONNECTION_STRING)

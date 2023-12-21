@@ -8,6 +8,10 @@ const SignOut = () => {
         try {
             await signOut(auth)
             sessionStorage.setItem("token", "")
+            sessionStorage.setItem("userInfo", JSON.stringify({
+                userId: '',
+                email: ''
+            }))
             navigate("/")
         } catch (error) {
             console.log(error)

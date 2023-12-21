@@ -2,6 +2,10 @@ import ExpenseForm from "./ExpenseForm"
 
 const ExpenseDialog = () => {
 
+    const handleSubmit = () => {
+
+    }
+
     return (
         <div className="modal-box">
             <h3 className="font-bold text-lg">Hello!</h3>
@@ -11,7 +15,7 @@ const ExpenseDialog = () => {
                 <button 
                     className="btn btn-primary"
                     form="add-expense-form"
-                    value={"submit"}
+                    onClick={() => handleSubmit()}
                 >
                     Add
                 </button>

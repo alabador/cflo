@@ -5,7 +5,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import SignInWithGoogle from "./SignInWithGoogle";
 import createUser from "../../api/CreateUser";
 
-const SignIn = ({tokenValue, authStatus}) => {
+const SignIn = ({tokenValue, authStatus, userInfo}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate()
@@ -32,7 +32,17 @@ const SignIn = ({tokenValue, authStatus}) => {
             return tkn
         })
         .then((tkn) => {
-            createUser(tkn)
+            const test = createUser(tkn)
+            return test
+        })
+        .then((data) => {
+            console.log(data)
+            const userData = {
+                userId: data.user.userId,
+                email: data.user.email
+            }
+            userInfo(userData)
+            window.sessionStorage.setItem('userInfo', JSON.stringify(userData))
         })
         .catch((error) => {
             console.log(error);

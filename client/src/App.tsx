@@ -5,11 +5,23 @@ import Home from './routes/Home'
 import {Protected} from './routes/Protected'
 import { useEffect, useState } from 'react'
 
+interface userInfo {
+  userId: string,
+  email: string
+}
+
 function App() {
   const [token, setToken] = useState(
     '' || window.sessionStorage.getItem("token"))
   const [isAuthenticated, setIsAuthenticated] = useState(
     false || window.sessionStorage.getItem("auth") === "true"
+  )
+  const [userInfo, setUserInfo] = useState(
+    {
+      userId : '',
+      email: ''
+    } ||
+    JSON.parse(window.sessionStorage.getItem('userInfo')!)
   )
 
   const getToken = (newToken) => {
@@ -18,6 +30,10 @@ function App() {
 
   const getAuthStatus = (status:boolean) => {
     setIsAuthenticated(status)
+  }
+
+  const getUserInfo = (info:userInfo) => {
+    setUserInfo(info)
   }
 
   useEffect(() => {
@@ -31,6 +47,7 @@ function App() {
         tokenValue={getToken}
         authStatus={getAuthStatus}
         isAuthenticated={isAuthenticated}
+        userInfo={getUserInfo}
       />
     }, 
     {

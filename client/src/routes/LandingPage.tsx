@@ -4,7 +4,7 @@ import SignIn from "../components/auth/SignIn";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-const LandingPage = ({tokenValue, authStatus, isAuthenticated}) => {
+const LandingPage = ({tokenValue, authStatus, isAuthenticated, userInfo}) => {
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const LandingPage = ({tokenValue, authStatus, isAuthenticated}) => {
           </p>
         </div>
         <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-            <SignIn tokenValue={tokenValue} authStatus={authStatus}/>
+            <SignIn tokenValue={tokenValue} authStatus={authStatus} userInfo={userInfo}/>
             <div className="divider my-0"></div> 
             <CreateAccountCta />
         </div>
