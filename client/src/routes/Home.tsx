@@ -35,7 +35,7 @@ const Home = ({token, isAuthenticated, authStatus, userInfo}:
 
     return (
         <main className='w-full min-h-screen'>
-            <Navbar />
+            <Navbar userInfo={userInfo}/>
             <div className='w-full min-h-screen flex flex-col justify-center items-center'> 
                 <p className="text-xl">{`Signed In as ${userInfo.email}`}</p>
                 <Expenses token={token}/>

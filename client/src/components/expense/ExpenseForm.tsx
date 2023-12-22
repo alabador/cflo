@@ -1,5 +1,6 @@
+import { userInfo } from "../../App"
 
-const ExpenseForm = () => {
+const ExpenseForm = ({userInfo}: {userInfo:userInfo}) => {
     
     const handleSubmit = (e) => {
         e.preventDefault()

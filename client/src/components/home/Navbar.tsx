@@ -1,13 +1,14 @@
+import { userInfo } from "../../App"
 import CreateExpenseButton from "../expense/CreateExpenseButton"
 
-const Navbar = () => {
+const Navbar = ({userInfo}: {userInfo:userInfo}) => {
   return (
     <div className="navbar fixed bg-base-100">
         <div className="flex-1">
             <a className="btn btn-ghost text-2xl">CFlo</a>
         </div>
         <div className="flex-none gap-2">
-            <CreateExpenseButton />
+            <CreateExpenseButton userInfo={userInfo}/>
             {/* <div className="form-control">
                 <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
             </div> */}

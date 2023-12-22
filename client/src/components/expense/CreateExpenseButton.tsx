@@ -1,8 +1,9 @@
 import { MdOutlineAttachMoney } from "react-icons/md";
 import ExpenseDialog from "./ExpenseDialog";
 import { useEffect, useState } from "react";
+import { userInfo } from "../../App";
 
-const CreateExpenseButton = () => {
+const CreateExpenseButton = ({userInfo}: {userInfo:userInfo}) => {
     const [dialogElement, setDialogElement] = useState<HTMLElement|HTMLDialogElement|null>(null)
 
     useEffect(() => {
@@ -22,7 +23,7 @@ const CreateExpenseButton = () => {
                 <MdOutlineAttachMoney /> Add Expense
             </button>
             <dialog id="expense-modal" className="modal">
-                <ExpenseDialog />
+                <ExpenseDialog userInfo={userInfo}/>
             </dialog>
 
         </>
