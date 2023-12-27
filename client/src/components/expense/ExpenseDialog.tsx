@@ -1,6 +1,7 @@
 import { userInfo } from "../../App"
 import ExpenseForm from "./ExpenseForm"
 
+
 const ExpenseDialog = ({userInfo}: {userInfo:userInfo}) => {
 
     const handleSubmit = () => {

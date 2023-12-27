@@ -43,7 +43,7 @@ const ExpenseForm = ({userInfo}: {userInfo:userInfo}) => {
         setDescription(e.target.value)
     }
     const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setName(e.target.value)
+        setDate(e.target.value)
     }
 
     return (
@@ -76,6 +76,18 @@ const ExpenseForm = ({userInfo}: {userInfo:userInfo}) => {
                 className="input input-bordered w-full"
                 value={category}
                 onChange={handleCategoryChange} 
+            />
+
+            <label htmlFor='expense-form-date' className='label'>
+                Expense Date
+            </label> 
+            <input
+                id='expense-form-date' name='date'
+                className="input input-bordered w-full" 
+                aria-label="Date" 
+                type="date" 
+                value={date}
+                onChange={handleDateChange}
             />
 
             <label htmlFor='expense-form-description' className='label'>
