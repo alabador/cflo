@@ -17,11 +17,11 @@ function App() {
     false || window.sessionStorage.getItem("auth") === "true"
   )
   const [userInfo, setUserInfo] = useState(
+    JSON.parse(window.sessionStorage.getItem('userInfo')!) ||
     {
-      userId : '',
-      email: ''
-    } ||
-    JSON.parse(window.sessionStorage.getItem('userInfo')!)
+      userID : 'Error fetching data.',
+      email: 'Error fetching data.'
+    }
   )
 
   const getToken = (newToken) => {

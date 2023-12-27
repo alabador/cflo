@@ -25,6 +25,10 @@ const expenseSchema = new Schema({
     is_expense: {
         type: Boolean,
         required: true
+    },
+    date: {
+        type: Date,
+        required: true
     }
 }, {timestamps : true})
 
