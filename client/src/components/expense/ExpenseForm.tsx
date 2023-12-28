@@ -1,40 +1,37 @@
 import { useState } from "react"
 import { userInfo } from "../../App"
 
-const ExpenseForm = ({userInfo}: {userInfo:userInfo}) => {
-
-    const [formData, setFormData] = useState({
-        userId: userInfo.userId,
-        expenseName: "",
-        expensePrice: 0,
-        expenseCategory: "",
-        expenseDescription: "",
-        isExpense: true,
-        date: new Date()
-    })
+const ExpenseForm = ({userInfo, handleClick}: 
+    {userInfo:userInfo, handleClick:any}) => {
 
     const [name, setName] = useState('')
-    const [price, setPrice] = useState('')
+    const [price, setPrice] = useState(0)
     const [category, setCategory] = useState('')
     const [description, setDescription] = useState('')
     const [date, setDate] = useState('')
-    
-    
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        const query = e.get("name")
-        alert(`you searched for ${query}`)
-        // setFormData({
-        //     ...formData,
-        //     userId: e
-        // })
+        let data = {
+            userId: userInfo.userId,
+            expenseName: name,
+            expensePrice: price,
+            expenseCategory: category,
+            expenseDescription: description,
+            isExpense: true,
+            date: date
+        }
+        handleClick(data)
+        
     }
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value)
     }
     const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPrice(e.target.value)
+        // const value = !Number.isNaN(e.target.valueAsNumber) ? e.target.valueAsNumber : null;
+        const value = e.target.valueAsNumber
+        setPrice(value);
     }
     const handleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setCategory(e.target.value)
@@ -43,7 +40,8 @@ const ExpenseForm = ({userInfo}: {userInfo:userInfo}) => {
         setDescription(e.target.value)
     }
     const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setDate(e.target.value)
+        const formDate = e.target.value
+        setDate(formDate)
     }
 
     return (
@@ -62,7 +60,7 @@ const ExpenseForm = ({userInfo}: {userInfo:userInfo}) => {
                 Price
             </label>
             <input id='expense-form-price' name='price' 
-                type="text" placeholder="Expense" 
+                type="number" placeholder="Expense" 
                 className="input input-bordered w-full"
                 value={price}
                 onChange={handlePriceChange} 
