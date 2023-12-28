@@ -1,39 +1,22 @@
 import { useState } from "react"
 import { userInfo } from "../../App"
 import ExpenseForm from "./ExpenseForm"
+import createExpense from "../../api/CreateExpense"
 
-interface Data {
+export interface Data {
     userId: string,
     expenseName: string,
     expensePrice: number,
     expenseCategory: string,
     expenseDescription: string,
     isExpense: boolean,
-    date: Date
+    date: string
 }
 
 const ExpenseDialog = ({userInfo, close, dialogElement}: {userInfo:userInfo, close, dialogElement}) => {
-    const [formData, setFormData] = useState({
-        userId: userInfo.userId,
-        expenseName: "",
-        expensePrice: 0,
-        expenseCategory: "",
-        expenseDescription: "",
-        isExpense: true,
-        date: new Date()
-    })
 
-    const handleClick = (data: Data) => {
-        setFormData({
-            ...formData,
-            userId: data.userId,
-            expenseName: data.expenseName,
-            expensePrice: data.expensePrice,
-            expenseCategory: data.expenseCategory,
-            expenseDescription: data.expenseDescription,
-            isExpense: true,
-            date: data.date
-        })
+    const handleClick = async (data: Data) => {
+        createExpense(data)
         close(dialogElement)
     }
 
@@ -47,7 +30,7 @@ const ExpenseDialog = ({userInfo, close, dialogElement}: {userInfo:userInfo, clo
                     className="btn btn-primary"
                     form="add-expense-form"
                     type="submit"
-                    onClick={handleClick}
+                    onClick={() => handleClick}
                 >
                     Add
                 </button>

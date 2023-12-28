@@ -49,6 +49,10 @@ const updateUserData = async (decodeValue, req, res) => {
 	}
 }
 
+const newExpense = async (expenseData, req, res) => {
+	
+}
+
 app.get('/', (request, response) => {
     return response.status(200).send('Successful')
 })
@@ -65,7 +69,6 @@ app.get('/home', (req, res) => {
 
 
 app.post('/home', async (req, res) => {
-	// res.send(req.headers.authorization)
 	if (!req.headers.authorization) {
 		console.log('error')
 		return res.status(500).send({message: "Invalid Token"})
@@ -95,7 +98,9 @@ app.post('/home', async (req, res) => {
 });
 
 app.post('/home/add', async (req,res) => {
-	res.send('hi')
+	// res.send('hi')
+	return res.json(req.body)
+	// return res.json({message: 'hi'})
 })
 
 mongoose

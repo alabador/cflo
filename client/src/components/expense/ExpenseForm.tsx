@@ -22,7 +22,11 @@ const ExpenseForm = ({userInfo, handleClick}:
             date: date
         }
         handleClick(data)
-        
+        setName('')
+        setPrice(0)
+        setCategory('')
+        setDescription('')
+        setDate('')
     }
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,6 +67,8 @@ const ExpenseForm = ({userInfo, handleClick}:
                 type="number" placeholder="Expense" 
                 className="input input-bordered w-full"
                 value={price}
+                min={0}
+                step={0.01}
                 onChange={handlePriceChange} 
             />
             
