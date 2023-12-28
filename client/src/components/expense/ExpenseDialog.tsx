@@ -12,7 +12,7 @@ interface Data {
     date: Date
 }
 
-const ExpenseDialog = ({userInfo, close}: {userInfo:userInfo, close}) => {
+const ExpenseDialog = ({userInfo, close, dialogElement}: {userInfo:userInfo, close, dialogElement}) => {
     const [formData, setFormData] = useState({
         userId: userInfo.userId,
         expenseName: "",
@@ -34,7 +34,7 @@ const ExpenseDialog = ({userInfo, close}: {userInfo:userInfo, close}) => {
             isExpense: true,
             date: data.date
         })
-        close()
+        close(dialogElement)
     }
 
     return (

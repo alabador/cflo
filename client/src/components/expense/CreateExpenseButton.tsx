@@ -14,8 +14,9 @@ const CreateExpenseButton = ({userInfo}: {userInfo:userInfo}) => {
         element.showModal()
     }
 
-    const closeDialog = () => {
-        dialogElement!.close()
+    const closeDialog = (element) => {
+        // dialogElement!.close()
+        element.close()
     }
 
     return (
@@ -27,7 +28,7 @@ const CreateExpenseButton = ({userInfo}: {userInfo:userInfo}) => {
                 <MdOutlineAttachMoney /> Add Expense
             </button>
             <dialog id="expense-modal" className="modal">
-                <ExpenseDialog userInfo={userInfo} close={closeDialog}/>
+                <ExpenseDialog userInfo={userInfo} close={closeDialog} dialogElement={dialogElement}/>
             </dialog>
 
         </>
