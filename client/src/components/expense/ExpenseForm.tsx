@@ -1,14 +1,9 @@
-import { useState } from "react"
 import { userInfo } from "../../App"
 
-const ExpenseForm = ({userInfo, handleClick}: 
-    {userInfo:userInfo, handleClick:any}) => {
-
-    const [name, setName] = useState('')
-    const [price, setPrice] = useState(0)
-    const [category, setCategory] = useState('')
-    const [description, setDescription] = useState('')
-    const [date, setDate] = useState('')
+const ExpenseForm = (
+    {userInfo, handleClick, name, setName, price, setPrice, category, setCategory, description, setDescription, date, setDate}: 
+    {userInfo:userInfo, handleClick:any, name, setName, price, setPrice, category, setCategory, description, setDescription, date, setDate}) => 
+    {
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -22,6 +17,10 @@ const ExpenseForm = ({userInfo, handleClick}:
             date: date
         }
         handleClick(data)
+        resetForm()
+    }
+
+    const resetForm = () => {
         setName('')
         setPrice(0)
         setCategory('')
@@ -106,6 +105,7 @@ const ExpenseForm = ({userInfo, handleClick}:
             >      
             </textarea>        
         </form>
+    
     )
 }
 
