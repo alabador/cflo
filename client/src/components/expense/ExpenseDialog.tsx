@@ -19,6 +19,7 @@ const ExpenseDialog = ({userInfo, close, dialogElement}: {userInfo:userInfo, clo
     const [category, setCategory] = useState('')
     const [description, setDescription] = useState('')
     const [date, setDate] = useState('')
+    const [isExpense, setIsExpense] = useState(true)
 
     const handleClick = async (data: Data) => {
         createExpense(data)
@@ -32,12 +33,11 @@ const ExpenseDialog = ({userInfo, close, dialogElement}: {userInfo:userInfo, clo
         setCategory('')
         setDescription('')
         setDate('')
+        setIsExpense(true)
     }
 
     return (
         <div className="modal-box">
-            <h3 className="font-bold text-lg">Hello!</h3>
-            <p className="py-4">Press ESC key or click the button below to close</p>
             <ExpenseForm 
                 userInfo={userInfo} 
                 handleClick={handleClick}
@@ -46,6 +46,7 @@ const ExpenseDialog = ({userInfo, close, dialogElement}: {userInfo:userInfo, clo
                 category={category} setCategory={setCategory}
                 description={description} setDescription={setDescription}
                 date={date} setDate={setDate}
+                isExpense={isExpense} setIsExpense={setIsExpense}
             />
             <div className="modal-action">
                 <button 
