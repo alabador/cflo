@@ -60,8 +60,20 @@ app.get('/', (request, response) => {
 app.get('/home', (req, res) => {
 	return res.json({
 		expenses: [
-			{title: 'Expense1',},
-			{title: 'Expense2',},
+			{expense_name : 'expense title',
+			expense_price : 0,
+			expense_category : 'entertainment',
+			expense_description : 'this is a short desc',
+			is_expense: true,
+			date: '1/1/2024'
+			},
+			{expense_name : 'expense title 2',
+			expense_price : 0,
+			expense_category : 'entertainment',
+			expense_description : 'this is a short desc',
+			is_expense: true,
+			date: '1/1/2024'
+			}
 		],
 	});
 });

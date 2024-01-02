@@ -2,7 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 interface Expense {
-    title: string;
+    expense_name : string,
+    expense_price : number,
+    expense_category : string,
+    expense_description : string,
+    is_expense: boolean,
+    date: string
+    
 }
 
 const Expenses = ({token}: {token: string|null} ) => {
@@ -28,7 +34,13 @@ const Expenses = ({token}: {token: string|null} ) => {
     return (
         <>
             {expenses.map((expense, index) => (
-                <p key={index}>{expense.title}</p>
+                <div key={index} className="card w-96 bg-base-100 shadow-md py-4 my-4">
+                    <p>{expense.expense_name}</p>
+                    <p>{expense.expense_price}</p>
+                    <p>{expense.expense_category}</p>
+                    <p>{expense.expense_description}</p>
+                    <p>{expense.date}</p>
+                </div>
             ))}
         </>
     );
