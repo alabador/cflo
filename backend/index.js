@@ -57,7 +57,7 @@ const newExpenseData = async (expenseData, req, res) => {
 		expense_price: expenseData.expensePrice,
 		expense_category: expenseData.expenseCategory,
 		expense_description: expenseData.expenseDescription,
-		is_expense: expenseData.is_expense,
+		is_expense: expenseData.isExpense,
 		date: expenseData.date
 	})
 
