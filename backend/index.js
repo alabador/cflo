@@ -5,6 +5,7 @@ import middleware from './middleware/index.js';
 import mongoose from 'mongoose';
 import admin from './config/firebase-config.js';
 import Users from './models/users.js';
+import Expense from './models/expense.js';
 
 const app = express()
 
@@ -49,8 +50,23 @@ const updateUserData = async (decodeValue, req, res) => {
 	}
 }
 
-const newExpense = async (expenseData, req, res) => {
-	
+const newExpenseData = async (expenseData, req, res) => {
+	const newExpense = new Expense({
+		userId: expenseData.userId,
+		expense_name: expenseData.expenseName,
+		expense_price: expenseData.expensePrice,
+		expense_category: expenseData.expenseCategory,
+		expense_description: expenseData.expenseDescription,
+		is_expense: expenseData.is_expense,
+		date: expenseData.date
+	})
+
+	try {
+		const savedExpense = await newExpense.save()
+		res.status(200).send({expense : savedExpense})
+	} catch (error) {
+		res.status(400).send({success: false, msg: error})
+	}
 }
 
 app.get('/', (request, response) => {
@@ -110,9 +126,18 @@ app.post('/home', async (req, res) => {
 });
 
 app.post('/home/add', async (req,res) => {
-	// res.send('hi')
-	return res.json(req.body)
-	// return res.json({message: 'hi'})
+	if (!req.headers.authorization) {
+		console.log('error')
+		return res.status(500).send({message: "Not signed in to an account."})
+	}
+	const expenseData = req.body
+	const token = req.headers.authorization.split(' ')[1];
+	try {
+		newExpenseData(expenseData, req, res)
+	} catch (error) {
+		console.log(error)
+		return res.json({ message: 'Internal Error' });
+	}
 })
 
 mongoose

@@ -3,7 +3,7 @@ import ExpenseDialog from "./ExpenseDialog";
 import { useEffect, useState } from "react";
 import { userInfo } from "../../App";
 
-const CreateExpenseButton = ({userInfo}: {userInfo:userInfo}) => {
+const CreateExpenseButton = ({userInfo, token}: {userInfo:userInfo, token}) => {
     const [dialogElement, setDialogElement] = useState<HTMLElement|HTMLDialogElement|null>(null)
 
     useEffect(() => {
@@ -28,7 +28,12 @@ const CreateExpenseButton = ({userInfo}: {userInfo:userInfo}) => {
                 <MdOutlineAttachMoney /> Add Expense
             </button>
             <dialog id="expense-modal" className="modal">
-                <ExpenseDialog userInfo={userInfo} close={closeDialog} dialogElement={dialogElement}/>
+                <ExpenseDialog 
+                    userInfo={userInfo} 
+                    close={closeDialog} 
+                    dialogElement={dialogElement}
+                    token={token}
+                />
             </dialog>
 
         </>

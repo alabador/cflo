@@ -10,7 +10,7 @@ const ExpenseCard = ({expense} : {expense: Expense}) => {
         //     <p>{expense.date}</p>
         // </div>
 
-        <div className="collapse bg-neutral w-full p-4 my-4">
+        <div className="collapse bg-neutral w-full shadow-md p-2 my-4">
             <input type="checkbox" /> 
             <div className="collapse-title text-md font-medium">
                 <p>{expense.expense_name}</p>

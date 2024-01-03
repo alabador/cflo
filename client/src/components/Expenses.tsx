@@ -33,11 +33,11 @@ const Expenses = ({token}: {token: string|null} ) => {
     }, [token]);
 
     return (
-        <>
+        <div className="w-3/4">
             {expenses.map((expense, index) => (
                 <ExpenseCard key={index} expense={expense}/>
             ))}
-        </>
+        </div>
     );
 };
 

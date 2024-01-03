@@ -13,7 +13,7 @@ export interface Data {
     date: string
 }
 
-const ExpenseDialog = ({userInfo, close, dialogElement}: {userInfo:userInfo, close, dialogElement}) => {
+const ExpenseDialog = ({userInfo, close, dialogElement, token}: {userInfo:userInfo, close, dialogElement, token}) => {
     const [name, setName] = useState('')
     const [price, setPrice] = useState(0)
     const [category, setCategory] = useState('')
@@ -22,7 +22,7 @@ const ExpenseDialog = ({userInfo, close, dialogElement}: {userInfo:userInfo, clo
     const [isExpense, setIsExpense] = useState(true)
 
     const handleClick = async (data: Data) => {
-        createExpense(data)
+        createExpense(data, token)
         close(dialogElement)
     }
 
