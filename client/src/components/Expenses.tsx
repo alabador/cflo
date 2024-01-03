@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import ExpenseCard from "./expense/ExpenseCard";
 
-interface Expense {
+export interface Expense {
     expense_name : string,
     expense_price : number,
     expense_category : string,
@@ -34,13 +35,7 @@ const Expenses = ({token}: {token: string|null} ) => {
     return (
         <>
             {expenses.map((expense, index) => (
-                <div key={index} className="card w-96 bg-base-100 shadow-md py-4 my-4">
-                    <p>{expense.expense_name}</p>
-                    <p>{expense.expense_price}</p>
-                    <p>{expense.expense_category}</p>
-                    <p>{expense.expense_description}</p>
-                    <p>{expense.date}</p>
-                </div>
+                <ExpenseCard key={index} expense={expense}/>
             ))}
         </>
     );
