@@ -22,15 +22,20 @@ const Expenses = ({token, userInfo}: {token: string|null, userInfo:userInfo} ) =
                 Authorization: `Bearer ${token}`,
             },
             params: {userId : userId}
-        });
-        setExpenses(response.data.expenses);
+        })
+        const data = await response.data.expenses
+        // setExpenses(response.data.expenses);
         // console.log(response.data);
-        return response.data
+        // return response.data
+        return data
     };
 
     useEffect(() => {
         if (token) {
-            fetchData(token, userInfo.userId);
+            const promise = fetchData(token, userInfo.userId);
+            promise.then((data) => {
+                setExpenses(data)
+            })
         }
     }, [token]);
 
