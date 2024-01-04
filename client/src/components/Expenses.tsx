@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ExpenseCard from "./expense/ExpenseCard";
+import { userInfo } from "../App";
 
 export interface Expense {
     expense_name : string,
@@ -12,14 +13,15 @@ export interface Expense {
     
 }
 
-const Expenses = ({token}: {token: string|null} ) => {
+const Expenses = ({token, userInfo}: {token: string|null, userInfo:userInfo} ) => {
     const [expenses, setExpenses] = useState<Array<Expense>>([]);
 
-    const fetchData = async (token:string) => {
+    const fetchData = async (token:string, userId:string) => {
         const response = await axios.get("http://localhost:3000/home", {
             headers: {
-                Authorization: `Bearer ${token}`
-            }
+                Authorization: `Bearer ${token}`,
+            },
+            params: {userId : userId}
         });
         setExpenses(response.data.expenses);
         // console.log(response.data);
@@ -28,7 +30,7 @@ const Expenses = ({token}: {token: string|null} ) => {
 
     useEffect(() => {
         if (token) {
-            fetchData(token);
+            fetchData(token, userInfo.userId);
         }
     }, [token]);
 

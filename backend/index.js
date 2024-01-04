@@ -69,29 +69,40 @@ const newExpenseData = async (expenseData, req, res) => {
 	}
 }
 
+const getExpenseData = async (uID, req, res) => {
+	const userExpensePromise = await Expense.find({userId: uID}).exec()
+	return userExpensePromise
+}
+
 app.get('/', (request, response) => {
     return response.status(200).send('Successful')
 })
 
 app.get('/home', (req, res) => {
-	return res.json({
-		expenses: [
-			{expense_name : 'expense title',
-			expense_price : 0,
-			expense_category : 'entertainment',
-			expense_description : 'this is a short desc',
-			is_expense: true,
-			date: '1/1/2024'
-			},
-			{expense_name : 'expense title 2',
-			expense_price : 0,
-			expense_category : 'entertainment',
-			expense_description : 'this is a short desc',
-			is_expense: true,
-			date: '1/1/2024'
-			}
-		],
-	});
+	if (!req.headers.authorization) {
+		console.log('error')
+		return res.status(500).send({message: "Invalid Token"})
+	}
+
+	const token = req.headers.authorization.split(' ')[1];
+	const uID = req.query.userId
+	
+	let userExpenseData = []
+	let userExpensePromise = getExpenseData(uID)
+	
+	userExpensePromise.then((expenses) => {
+		expenses.forEach((expense) => {
+			userExpenseData.push(expense)
+		})
+		return res.json({
+			expenses: userExpenseData
+		});
+	})
+	.catch(error => {
+		console.log(error)
+	})
+	
+
 });
 
 
